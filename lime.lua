@@ -58,7 +58,7 @@ local Score = {}
 function Score:new(score, o)
   local o = o or {}
   o.timestamp = os.time()
-  o.submittedAt = os.date(dateTimeFormat, o.timestamp)
+--  o.submittedAt = os.date(dateTimeFormat, o.timestamp)
   o.score = o.score
   setmetatable(o, self)
   self.__index = self
@@ -110,6 +110,7 @@ function ScoresFile:add(score, o)
   local key = generateLevelKey(self.levelKeyFrom, o)
   local score = Score:new(score, o)
   local scores = scores
+
   if #key == 0 then
     scores = self.scores
   else
@@ -117,17 +118,11 @@ function ScoresFile:add(score, o)
     scores = self.scores[key]
   end
 
-  for i=#scores, 1, -1 do
-    local s = scores[i]
-    if s.score > score.score then
-      table.insert(scores, i + 1, score)
-      break
-    end
-  end
+  table.insert(scores, score)
 
-  if #scores == 0 then
-    table.insert(scores, score)
-  end
+  table.sort(scores, function(a, b)
+    return a.score > b.score
+  end)
 
   if #scores > self.maxPerLevel then
     table.remove(scores)
@@ -153,5 +148,5 @@ function save()
   scoresFile:save()
 end
 
-function clearLevel(o)
+function clear(o)
 end

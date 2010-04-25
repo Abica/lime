@@ -50,7 +50,6 @@ local function generateLevelKey(formatter, o)
       table.insert(key, o[k])
     end
   end
-  print(unpack(key))
   return table.concat(key, "-")
 end
 
@@ -112,10 +111,8 @@ function ScoresFile:add(score, o)
   local score = Score:new(score, o)
   local scores = scores
   if #key == 0 then
-  print("AAA")
     scores = self.scores
   else
-  print("BBB", self.scores, key)
     self.scores[key] = self.scores[key] or {}
     scores = self.scores[key]
   end

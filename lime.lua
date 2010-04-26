@@ -41,7 +41,7 @@ local unpack = unpack
 
 module("lime")
 
-local dateTimeFormat = "%m/%d/%y %H:%M%p"
+local dateTimeFormat = "%m/%d/%y %H:%M"
 
 local function generateLevelKey(formatter, o)
   local key = {}
@@ -58,7 +58,6 @@ local Score = {}
 function Score:new(score, o)
   local o = o or {}
   o.timestamp = os.time()
---  o.submittedAt = os.date(dateTimeFormat, o.timestamp)
   o.score = o.score
   setmetatable(o, self)
   self.__index = self
@@ -98,8 +97,9 @@ function ScoresFile:read()
 end
 
 function ScoresFile:scoresFor(o)
+  local o = o or {}
   local key = generateLevelKey(self.levelKeyFrom, o)
-  if #key == 0 then
+  if key == '' then
     return self.scores
   else
     return self.scores[key] or {}
@@ -110,6 +110,7 @@ function ScoresFile:add(score, o)
   local key = generateLevelKey(self.levelKeyFrom, o)
   local score = Score:new(score, o)
   local scores = scores
+  local newHighScore = false
 
   if #key == 0 then
     scores = self.scores
@@ -127,6 +128,8 @@ function ScoresFile:add(score, o)
   if #scores > self.maxPerLevel then
     table.remove(scores)
   end
+
+  return scores[1] == score
 end
 
 local scoresFile = scoresFile
@@ -137,11 +140,11 @@ function setup(o)
 end
 
 function localScores(o)
-  scoresFile:scoresFor(o)
+  return scoresFile:scoresFor(o)
 end
 
 function add(o)
-  scoresFile:add(o.score, o)
+  return scoresFile:add(o.score, o)
 end
 
 function save()
@@ -149,4 +152,8 @@ function save()
 end
 
 function clear(o)
+end
+
+function formatTimestamp(t)
+  return os.date(dateTimeFormat, t)
 end

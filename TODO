@@ -1,0 +1,14 @@
+[ ] local scores
+  [ ] multiple file support
+  [x] add score
+    [x] mechanism for dynamic score boards
+    [x] ability to have a single, nameless score board
+    [x] ability to have several score boards
+    [x] metadata
+    [x] set per board limit on scores
+  [x] save scores
+  [x] load scores
+  [ ] clear scores
+[ ] global scores
+  [ ] save scores on server
+  [ ] load scores

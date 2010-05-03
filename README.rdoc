@@ -1,3 +1,4 @@
+= Description
 lime is a basic high score framework for saving and reloading global and local scores
 using the corona sdk (anscamobile.com)
 

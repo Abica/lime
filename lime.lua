@@ -1,5 +1,4 @@
-require "json"
-
+local json = require("json")
 local system = system
 local io = io
 local os = os
@@ -12,32 +11,6 @@ local ipairs = ipairs
 local assert = assert
 local print = print
 local unpack = unpack
-
---[[
-  basic usage:
-
-  -- setup
-
-  -- the levelKeyFrom option takes a table of property names
-  -- that are used to generate and group scores, based off of
-  -- the optios table that you pass in at score creation
-  --
-  -- think of them as a method of creating dymanic lobbies
-  lime.setup({
-    maxPerLevel = 10,
-    levelKeyFrom = {"difficulty", "level"}
-  })
-
-  -- add a score
-  lime.add({
-    score = player.score,
-    level = 50,
-    difficulty = "hard"
-  })
-
-  -- write scores to a file
-  lime.save()
---]]
 
 module("lime")
 

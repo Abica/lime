@@ -9,15 +9,18 @@ local scores. Local scores are persisted as json files.
   lime = require("lime")
 
   -- setup
+  -- maxPerLevel
+  --   the number of scores to keep per level
   --
-  -- the levelKeyFrom option takes a table of property names
-  -- that are used to generate and group scores, based off of
-  -- the optios table that you pass in at score creation
+  -- levelKeyFrom
+  --   the levelKeyFrom option takes a table of property names
+  --   that are used to generate and group scores, based off of
+  --   the optios table that you pass in at score creation
   --
-  -- think of them as a method of creating dymanic lobbies
+  --   think of them as a method of creating dymanic score boards
   --
-  -- if levelKeyFrom is empty then scores are added into lime as an array,
-  -- treating it as a single scoreboard
+  --   if levelKeyFrom is empty then scores are added into lime as an array,
+  --   treating it as a single scoreboard
   lime.setup({
     maxPerLevel = 10,
     levelKeyFrom = {"difficulty", "level"}
@@ -31,6 +34,9 @@ local scores. Local scores are persisted as json files.
   })
 
   -- load all local scores for a level
+  --
+  -- localScores returns an array of tables containing whatever you included when adding the score
+  --   as well as a 'timestamp' field which was the time that the score was added
   local scores = lime.localScores({
     level = 50,
     difficulty = "hard"
@@ -47,4 +53,7 @@ local scores. Local scores are persisted as json files.
 
   -- write scores to a file
   lime.save()
+
+  -- convenient time formatter
+  lime.formatTimestamp(score.timestamp)
 

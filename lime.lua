@@ -38,7 +38,7 @@ end
 
 local ScoresFile = {
   filename = system.pathForFile("scores.json", system.DocumentsDirectory),
-  maxPerLevel = 10,
+  maxScores = 10,
   levelKeyFrom = {"level"},
   scores = {}
 }
@@ -106,7 +106,7 @@ function ScoresFile:add(score, o)
     return a.score > b.score
   end)
 
-  if #scores > self.maxPerLevel then
+  if #scores > self.maxScores then
     table.remove(scores)
   end
 

@@ -10,7 +10,7 @@ local scores. Local scores are persisted as json files.
   lime = require("lime")
 
   -- setup
-  -- maxPerLevel
+  -- maxScores
   --   the number of scores to keep per level
   --
   -- levelKeyFrom
@@ -23,7 +23,7 @@ local scores. Local scores are persisted as json files.
   --   if levelKeyFrom is empty then scores are added into lime as an array,
   --   treating it as a single scoreboard
   lime.setup({
-    maxPerLevel = 10,
+    maxScores = 10,
     levelKeyFrom = {"difficulty", "level"}
   })
 
@@ -50,6 +50,12 @@ local scores. Local scores are persisted as json files.
   -- get amount of scores in this level
   print(#scores)
 
+  -- iterate over scores
+  for i, s in ipairs(scores) do
+    local addedAt = lime.formatTimestamp(s.timestamp)
+    print(s.score, addedAt)
+  end
+
   -- clear all scores for a level,
   lime.clear({
     level = 50,
@@ -58,7 +64,4 @@ local scores. Local scores are persisted as json files.
 
   -- write scores to a file
   lime.save()
-
-  -- convenient time formatter
-  lime.formatTimestamp(score.timestamp)
 

@@ -9,8 +9,6 @@ local type = type
 local setmetatable = setmetatable
 local ipairs = ipairs
 local assert = assert
-local print = print
-local unpack = unpack
 
 module("lime")
 
@@ -80,13 +78,9 @@ function ScoresFile:scoresFor(o)
 end
 
 function ScoresFile:clearScoresFor(o)
-  local o = o or {}
-  local key = generateLevelKey(self.levelKeyFrom, o)
-  if key == '' then
-    self.scores = {}
-  else
-    self.scores[key] = {}
-  end
+  local scores = self:scoresFor(o)
+  scores = {}
+  return scores
 end
 
 function ScoresFile:add(score, o)

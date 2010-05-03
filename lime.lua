@@ -28,8 +28,9 @@ local Score = {}
 
 function Score:new(score, o)
   local o = o or {}
+  assert(score or o.score, "'score' is a required field")
   o.timestamp = os.time()
-  o.score = o.score
+  o.score = o.score or score
   setmetatable(o, self)
   self.__index = self
   return o

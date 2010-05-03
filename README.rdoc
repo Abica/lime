@@ -27,6 +27,10 @@ local scores. Local scores are persisted as json files.
   })
 
   -- add a score
+  --
+  -- the only required key is "score", scores are kept sorted by "score"
+  -- if the keys specified in levelKeyFrom during setup are not passed,
+  -- scores are added into a global, nameless lobby
   lime.add({
     score = player.score,
     level = 50,

@@ -106,6 +106,16 @@ function ScoresFile:scoresFor(o)
   end
 end
 
+function ScoresFile:clearScoresFor(o)
+  local o = o or {}
+  local key = generateLevelKey(self.levelKeyFrom, o)
+  if key == '' then
+    self.scores = {}
+  else
+    self.scores[key] = {}
+  end
+end
+
 function ScoresFile:add(score, o)
   local key = generateLevelKey(self.levelKeyFrom, o)
   local score = Score:new(score, o)
@@ -152,6 +162,7 @@ function save()
 end
 
 function clear(o)
+  return scoresFile:clearScoresFor(o)
 end
 
 function formatTimestamp(t)

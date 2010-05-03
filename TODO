@@ -8,7 +8,7 @@
     [x] set per board limit on scores
   [x] save scores
   [x] load scores
-  [ ] clear scores
+  [x] clear scores
 [ ] global scores
   [ ] save scores on server
   [ ] load scores

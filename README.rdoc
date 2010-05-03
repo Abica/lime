@@ -1,0 +1,50 @@
+lime is a basic high score framework for saving and reloading global and local scores
+using the corona sdk (anscamobile.com)
+
+Right now it's fairly rough around the edges and only supports some basic abilities for
+local scores. Local scores are persisted as json files.
+
+= Usage
+  json = require("json")
+  lime = require("lime")
+
+  -- setup
+  --
+  -- the levelKeyFrom option takes a table of property names
+  -- that are used to generate and group scores, based off of
+  -- the optios table that you pass in at score creation
+  --
+  -- think of them as a method of creating dymanic lobbies
+  --
+  -- if levelKeyFrom is empty then scores are added into lime as an array,
+  -- treating it as a single scoreboard
+  lime.setup({
+    maxPerLevel = 10,
+    levelKeyFrom = {"difficulty", "level"}
+  })
+
+  -- add a score
+  lime.add({
+    score = player.score,
+    level = 50,
+    difficulty = "hard"
+  })
+
+  -- load all local scores for a level
+  local scores = lime.localScores({
+    level = 50,
+    difficulty = "hard"
+  })
+
+  -- get amount of scores in this level
+  print(#scores)
+
+  -- clear all scores for a level,
+  lime.clear({
+    level = 50,
+    difficulty = "hard"
+  })
+
+  -- write scores to a file
+  lime.save()
+

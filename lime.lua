@@ -78,9 +78,12 @@ function ScoresFile:scoresFor(o)
 end
 
 function ScoresFile:clearScoresFor(o)
-  local scores = self:scoresFor(o)
-  scores = {}
-  return scores
+  local key = generateLevelKey(self.levelKeyFrom, o)
+  if key == '' then
+    self.scores = {}
+  else
+    self.scores[key] = {}
+  end
 end
 
 function ScoresFile:add(score, o)
